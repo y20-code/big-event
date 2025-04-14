@@ -11,4 +11,7 @@ public interface UserService {
 
     //更新
     void update(User user);
+
+    //上传图片
+    void updateAvatar(String avatarUrl);
 }
