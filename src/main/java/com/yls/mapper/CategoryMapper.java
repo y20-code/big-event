@@ -1,9 +1,14 @@
 package com.yls.mapper;
 
 import com.yls.pojo.Category;
+import com.yls.pojo.Result;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -22,4 +27,8 @@ public interface CategoryMapper {
     //根据ID查询
     @Select("select * from category where id = #{id}")
     Category finById(Integer id);
+
+    //更新
+    @Update("update category set category_name=#{categoryName},category_alias=#{categoryAlias},update_time=#{updateTime} where id=#{id}")
+    void update(Category category);
 }

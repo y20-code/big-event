@@ -13,4 +13,7 @@ public interface CategoryService {
 
     //根据id查询信息
     Category findById(Integer id);
+
+    //跟新分类
+    void update(Category category);
 }
