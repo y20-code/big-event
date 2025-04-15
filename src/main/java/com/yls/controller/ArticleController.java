@@ -38,4 +38,10 @@ public class ArticleController {
         return Result.success(pb);
 
     }
+
+    @DeleteMapping
+    public Result delete(@RequestParam Integer id){
+        articleService.delete(id);
+        return Result.success();
+    }
 }

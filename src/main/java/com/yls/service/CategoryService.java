@@ -16,4 +16,7 @@ public interface CategoryService {
 
     //跟新分类
     void update(Category category);
+
+    //删除文章分类
+    void delete(Integer id);
 }

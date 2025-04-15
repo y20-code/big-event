@@ -1,10 +1,7 @@
 package com.yls.mapper;
 
 import com.yls.pojo.Article;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,4 +14,11 @@ public interface ArticleMapper {
 
 
     List<Article> list(Integer id, Integer categoryId, String state);
+
+    @Delete("delete from article where id=#{id}")
+    void delete(Integer id);
+
+    //删除文章分类id
+    @Delete("delete from article where id=#{id}")
+    void deleteBycateoryId(Integer id);
 }

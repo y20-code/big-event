@@ -1,6 +1,7 @@
 package com.yls.service.impl;
 
 import com.fasterxml.jackson.core.ObjectCodec;
+import com.yls.mapper.ArticleMapper;
 import com.yls.mapper.CategoryMapper;
 import com.yls.pojo.Category;
 import com.yls.service.CategoryService;
@@ -17,6 +18,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @Override
     public void add(Category category) {
@@ -50,5 +54,11 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdateTime(LocalDateTime.now());
 
         categoryMapper.update(category);
+    }
+
+    @Override
+    public void delete(Integer id) {
+
+        categoryMapper.delete(id);
     }
 }

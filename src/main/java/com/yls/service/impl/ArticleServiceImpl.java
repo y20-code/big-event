@@ -53,4 +53,9 @@ public class ArticleServiceImpl implements ArticleService {
         pageBean.setItems(p.getResult());
         return pageBean;
     }
+
+    @Override
+    public void delete(Integer id) {
+        articleMapper.delete(id);
+    }
 }
