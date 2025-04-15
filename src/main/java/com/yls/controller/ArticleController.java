@@ -1,6 +1,7 @@
 package com.yls.controller;
 
 import com.yls.pojo.Article;
+import com.yls.pojo.PageBean;
 import com.yls.pojo.Result;
 import com.yls.service.ArticleService;
 import com.yls.utils.JwtUtil;
@@ -23,5 +24,18 @@ public class ArticleController {
     public Result add(@RequestBody @Validated Article article){
         articleService.add(article);
         return Result.success();
+    }
+
+    @GetMapping
+    public Result<PageBean<Article>> list(
+            Integer pageNum,
+            Integer pageSize,
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) String state
+    ){
+        PageBean<Article> pb = articleService.list(pageNum,pageSize,categoryId,state);
+
+        return Result.success(pb);
+
     }
 }
