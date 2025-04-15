@@ -1,5 +1,6 @@
 package com.yls.service.impl;
 
+import com.fasterxml.jackson.core.ObjectCodec;
 import com.yls.mapper.CategoryMapper;
 import com.yls.pojo.Category;
 import com.yls.service.CategoryService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -27,5 +29,12 @@ public class CategoryServiceImpl implements CategoryService {
         category.setCreateUser(id);
         categoryMapper.add(category);
 
+    }
+
+    @Override
+    public List<Category> list() {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer id = (Integer) map.get("id");
+        return categoryMapper.list(id);
     }
 }
