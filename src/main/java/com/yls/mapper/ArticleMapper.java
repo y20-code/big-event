@@ -25,4 +25,8 @@ public interface ArticleMapper {
     //查询文章详细信息
     @Select("select * from article where id=#{id}")
     List<Article> detail(Integer id);
+
+    //更新文章信息
+    @Update("update article set title=#{title},content=#{content},cover_img=#{coverImg},state=#{state},category_id=#{categoryId},update_time=#{updateTime}")
+    void update(Article article);
 }

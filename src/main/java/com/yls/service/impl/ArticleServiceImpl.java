@@ -65,6 +65,13 @@ public class ArticleServiceImpl implements ArticleService {
         return list;
     }
 
+    @Override
+    public void update(Article article) {
+        article.setUpdateTime(LocalDateTime.now());
+
+        articleMapper.update(article);
+    }
+
 
 //    @Override
 //    public void deleteByCategoryId(Integer id) {

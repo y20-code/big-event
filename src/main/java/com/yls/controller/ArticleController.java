@@ -51,4 +51,10 @@ public class ArticleController {
         List<Article> list = articleService.detail(id);
         return Result.success(list);
     }
+
+    @PutMapping
+    public Result update(@RequestBody @Validated Article article){
+        articleService.update(article);
+        return Result.success();
+    }
 }

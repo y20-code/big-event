@@ -20,6 +20,9 @@ public interface ArticleService {
     //查询文章详细
     List<Article> detail(Integer id);
 
+    //更新文章信息
+    void update(Article article);
+
     //根据文章分类id删除
 //    void deleteByCategoryId(Integer id);
 }
