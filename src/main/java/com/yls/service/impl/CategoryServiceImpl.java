@@ -18,10 +18,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
-
     @Autowired
     private ArticleMapper articleMapper;
-
     @Override
     public void add(Category category) {
         //补充属性值
@@ -58,7 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Integer id) {
-
+        //要先删除把所对应的文章删除
+        articleMapper.deleteByCateoryId(id);
         categoryMapper.delete(id);
     }
+
 }

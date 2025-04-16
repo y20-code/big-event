@@ -44,4 +44,6 @@ public class ArticleController {
         articleService.delete(id);
         return Result.success();
     }
+
+    //根据文章分类ID删除
 }

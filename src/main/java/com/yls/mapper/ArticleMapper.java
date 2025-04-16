@@ -19,6 +19,6 @@ public interface ArticleMapper {
     void delete(Integer id);
 
     //删除文章分类id
-    @Delete("delete from article where id=#{id}")
-    void deleteBycateoryId(Integer id);
+    @Delete("delete from article where category_id=#{id}")
+    void deleteByCateoryId(Integer id);
 }
