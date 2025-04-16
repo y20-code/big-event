@@ -59,6 +59,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.delete(id);
     }
 
+    @Override
+    public List<Article> detail(Integer id) {
+        List<Article> list = articleMapper.detail(id);
+        return list;
+    }
+
+
 //    @Override
 //    public void deleteByCategoryId(Integer id) {
 //        articleMapper.deleteByCateoryId(id);

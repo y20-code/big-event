@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,10 +41,14 @@ public class ArticleController {
     }
 
     @DeleteMapping
-    public Result delete(@RequestParam Integer id){
+    public Result delete(@RequestParam @Validated Integer id){
         articleService.delete(id);
         return Result.success();
     }
 
-    //根据文章分类ID删除
+    @GetMapping("/detail")
+    public Result detail(@RequestParam @Validated Integer id){
+        List<Article> list = articleService.detail(id);
+        return Result.success(list);
+    }
 }

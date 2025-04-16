@@ -21,4 +21,8 @@ public interface ArticleMapper {
     //删除文章分类id
     @Delete("delete from article where category_id=#{id}")
     void deleteByCateoryId(Integer id);
+
+    //查询文章详细信息
+    @Select("select * from article where id=#{id}")
+    List<Article> detail(Integer id);
 }
