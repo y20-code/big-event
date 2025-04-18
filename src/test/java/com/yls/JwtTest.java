@@ -6,42 +6,50 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JwtTest {
-
     @Test
-    public void testGen(){
+    public void testGen() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", 1);
+        claims.put("username", "张三");
 
-        Map<String,Object> claims = new HashMap<>();
-        claims.put("id",1);
-        claims.put("username","张三");
-
-        //生成jwt的代码
         String token = JWT.create()
-                .withClaim("user",claims)//添加载荷
-                .withExpiresAt(new Date(System.currentTimeMillis()+1000*60*60*12))//添加过期时间
-                .sign(Algorithm.HMAC256("yls"));//指定算法，配置秘钥
+                .withClaim("user", claims)
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12))
+                .sign(Algorithm.HMAC256("yls"));
 
         System.out.println(token);
     }
 
     @Test
-    public void testParse(){
-        //定义字符串，模拟用户传递过了的token
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
-                "eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IuW8oOS4iSJ9LCJleHAiOjE3NDQ2NDI3OTh9." +
-                "NIp9o4wvZWhgZztG2F3pOBXILBnkvPHLY2tg9bhHHQE";
+    public void testParse() {
+        // 动态生成令牌（复用 testGen 逻辑）
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", 1);
+        claims.put("username", "张三");
+        String token = JWT.create()
+                .withClaim("user", claims)
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)) // 12 小时后过期
+                .sign(Algorithm.HMAC256("yls"));
+
+        // 验证令牌
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("yls")).build();
+        DecodedJWT decodedJWT = jwtVerifier.verify(token);
 
-        DecodedJWT decodedJWT = jwtVerifier.verify(token);//验证token，生成一个解析后的JWT对象
+        // 获取并验证声明
+        Map<String, Claim> claim = decodedJWT.getClaims();
+        Claim userClaim = claim.get("user");
+        assertNotNull(userClaim, "User claim should not be null");
+        System.out.println(userClaim.asMap()); // 打印 {id=1, username=张三}
 
-        Map<String,Claim> claim = decodedJWT.getClaims();
-
-        System.out.println(claim.get("user"));
-
+        // 验证具体字段
+        Map<String, Object> userMap = userClaim.asMap();
+        assertEquals(1, userMap.get("id"), "User ID should be 1");
+        assertEquals("张三", userMap.get("username"), "Username should be 张三");
     }
 }
